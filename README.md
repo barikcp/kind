@@ -40,15 +40,15 @@ Step-2: Install Kubectl
        
 
 
-Step-3: (Join the worker-node-2 to MasterNode)
+Step-3: Install Kind
 
-       wget https://github.com/k3s-io/k3s/releases/download/v1.23.5%2Bk3s1/k3s        # Download the binary
+       curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64        # Download the binary
 
-       chmod +x k3s ​                                                                 # Give Executable permission  
+       chmod +x ./kind ​                                                                 # Give Executable permission  
         
-       sudo ./k3s agent -s https://10.160.0.4:6443 -t <Code_shown_in_above_step-2>​   # This command will be shown on the screen after K3s installed in step-1
+       mv ./kind /usr/local/bin​                           # This command will be shown on the screen after K3s installed in step-1
+       
+       kind create cluster --name k8s-kind-cluster-cp
+       kubectl get nodes
 
 
-Step-4: Verify the status of the Node (Execute in Master Node)
-
-         sudo ./k3s kubectl get nodes -o wide​
