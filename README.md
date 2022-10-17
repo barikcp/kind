@@ -1,17 +1,32 @@
-# Install docker
+# Install KinD cluster
 
-Step-1: Install KinD cluster in MasterNode.​
+Step-1: Install docker.​
 
-        sudo apt-get update                                                       # Download the binary
+        sudo apt-get update                                                       # 
 
-        chmod +x k3s ​                                                            # Give Executable permission  
+        sudo apt-get install \
+             ca-certificates \
+             curl \
+             gnupg \
+             lsb-release ​                                                        #
 
-        sudo ./k3s server​                                                        # Install K3s cluster in Master Node   
+        sudo mkdir -p /etc/apt/keyrings​                                          #  
         
-        sudo ./k3s kubectl get nodes -o wide                                      # Check how many nodes got created
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg                                      # 
          
-        cat /var/lib/rancher/k3s/server/token                                     # Use this token for connecting Worker-Node to MasterNode
-
+        echo \
+           "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+            $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+            
+       sudo apt-get update\
+       
+       sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+       
+       ps -eaf|grep docker   # Check the docker process status
+       
+       sudo service docker status   # check the docker service status
+       
+        
 Step-2: (Join the worker-node-1 to MasterNode)
 
        wget https://github.com/k3s-io/k3s/releases/download/v1.23.5%2Bk3s1/k3s        # Download the binary
