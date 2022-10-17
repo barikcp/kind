@@ -27,14 +27,21 @@ Step-1: Install docker.​
        sudo service docker status   # check the docker service status
        
         
-Step-2: (Join the worker-node-1 to MasterNode)
+Step-2: Install Kubectl
 
-       wget https://github.com/k3s-io/k3s/releases/download/v1.23.5%2Bk3s1/k3s        # Download the binary
+       sudo apt-get update                                                            # 
 
-       chmod +x k3s ​                                                                 # Give Executable permission  
+       sudo apt-get install -y ca-certificates curl ​                                 # 
              
-       sudo ./k3s agent -s https://10.160.0.4:6443 -t <Code_shown_in_above_step-2>​   # This command will be shown on the screen after K3s installed in step-1
-
+       sudo apt-get install -y apt-transport-https​                                   #
+       
+       sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+       
+       echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee     /etc/apt/sources.list.d/kubernetes.list
+       
+       sudo apt-get update
+       sudo apt-get install -y kubectl
+       
 
 
 Step-3: (Join the worker-node-2 to MasterNode)
